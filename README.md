@@ -24,7 +24,7 @@ To use this quickstart, you'll need the following:
 Follow these steps to get up and running with Firebase Data Connect locally (i.e., without setting up a production SQL instance). At the end of this guide, you will find instructions for connecting to a production SQL instance.
 
 For more detailed instructions,
-check out the [official documentation](https://firebase.google.com/docs/data-connect/quickstart-local).
+check out the [official documentation](https://firebase.google.com/docs/data-connect/quickstart-local), or the [codelab accompanying this repository](https://firebase.google.com/codelabs/firebase-dataconnect-ios).
 
 
 ### 1. Create a Firebase project
@@ -37,27 +37,27 @@ check out the [official documentation](https://firebase.google.com/docs/data-con
 
 1. Clone this repository to your local machine:
    ```sh
-   git clone https://github.com/firebase/data-connect-ios-sdk
+   git clone https://github.com/firebaseextended/codelab-dataconnect-ios
    ```
 
 ### 3. Open in Visual Studio Code (VS Code)
 
-1. Open the `data-connect-ios-sdk/Examples/FriendlyFlix` directory in VS Code.
+1. Open the `data-connect-ios-sdk/finish/FriendlyFlix` directory in VS Code.
 2. Click on the **Firebase Data Connect** icon on the VS Code sidebar to load the Firebase Data Connect Extension.
    a. Sign in with your Google Account if you haven't already.
 3. Click on **Connect a Firebase project** and choose the project you created in the first step.
 4. Click on **Start emulators**.
 
 ### 4. Populate the database
-In VS Code, open the `data-connect-ios-sdk/Examples/FriendlyFlix/dataconnect/data_seed.gql` file and click the
+In VS Code, open the `data-connect-ios-sdk/finish/FriendlyFlix/dataconnect/data_seed.gql` file and click the
  **Run (local)** button at the top of the file.
 
 If you'd like to confirm that the data was correctly inserted,
-open `data-connect-ios-sdk/Examples/FriendlyFlix/dataconnect/movie-connector/queries.gql` and run the `ListMovies` query.
+open `data-connect-ios-sdk/finish/FriendlyFlix/dataconnect/movie-connector/queries.gql` and run the `ListMovies` query.
 
 ### 5. Run the app
 
-1. Open `data-connect-ios-sdk/Examples/FriendlyFlix/app/FriendlyFlix/FriendlyFlix.xcodeproj` in Xcode
+1. Open `data-connect-ios-sdk/finish/FriendlyFlix/app/FriendlyFlix/FriendlyFlix.xcodeproj` in Xcode
 2. Wait for all packages to be resolved.
 3. Select one of the iPhone Simulators as the run destination.
 4. Press the **Run** button in Xcode to run the sample app on the iOS Simulator.
@@ -79,7 +79,7 @@ Once you've sucessfully run the app locally, you can set up a production instanc
     * Click **Download GoogleService-Info.plist** to obtain your Firebase config file.
 
 2. Move the `GoogleService-Info.plist` config file (downloaded in the previous step) into the root folder of the sample app in the
-  `data-connect-ios-sdk/Examples/FriendlyFlix/app/FriendlyFlix/FriendlyFlix/GoogleService-Info.plist` directory, replacing the existing `GoogleService-Info.plist` (which contains dummy values).
+  `data-connect-ios-sdk/finish/FriendlyFlix/app/FriendlyFlix/FriendlyFlix/GoogleService-Info.plist` directory, replacing the existing `GoogleService-Info.plist` (which contains dummy values).
 
 3. In the Firebase console, finish the **Add Firebase to your Apple app** flow by skipping over steps 3,4, and 5 - these were already done for you.
 
@@ -116,7 +116,7 @@ To be able to sign in to the application, you need to enable Firebase Authentica
 
 ### 5. Deploy your schema to production
 
-1. Open the `data-connect-ios-sdk/Examples/FriendlyFlix` directory in VS Code.
+1. Open the `data-connect-ios-sdk/finish/FriendlyFlix` directory in VS Code.
 2. Click on the Firebase Data Connect icon on the VS Code sidebar to load the Extension.
    a. Sign in with your Google Account if you haven't already.
    b. Ensure the project you created in the previous section is selected.
@@ -124,7 +124,7 @@ To be able to sign in to the application, you need to enable Firebase Authentica
 
 ### 6. Populate your database
 
-1. Open the `data-connect-ios-sdk/Examples/FriendlyFlix/dataconnect/data_seed.gql` file
+1. Open the `data-connect-ios-sdk/finish/FriendlyFlix/dataconnect/data_seed.gql` file
 2. Click on the **Run (Production - Project: your-project-name)** button to populate your database
 
 

@@ -1,0 +1,148 @@
+query ListMovies(
+  $orderByRating: OrderDirection
+  $orderByReleaseYear: OrderDirection
+  $limit: Int
+) @auth(level: PUBLIC) {
+  movies(
+    orderBy: [{ rating: $orderByRating }, { releaseYear: $orderByReleaseYear }]
+    limit: $limit
+  ) {
+    id
+    title
+    description
+    releaseYear
+    rating
+    imageUrl
+  }
+}
+
+# Get movie by id
+query GetMovieById($id: UUID!) @auth(level: PUBLIC) {
+  movie(id: $id) {
+    id
+    title
+    imageUrl
+    releaseYear
+    genre
+    rating
+    description
+    tags
+    metadata: movieMetadatas_on_movie {
+      director
+    }
+    mainActors: actors_via_MovieActor(where: { role: { eq: "main" } }) {
+      id
+      name
+      imageUrl
+    }
+    supportingActors: actors_via_MovieActor(
+      where: { role: { eq: "supporting" } }
+    ) {
+      id
+      name
+      imageUrl
+    }
+  }
+}
+
+query GetIfFavoritedMovie($movieId: UUID!) @auth(level: USER) {
+  favorite_movie(key: { userId_expr: "auth.uid", movieId: $movieId }) {
+    movieId
+  }
+}
+
+# Get favorite movies by user ID
+query GetUserFavoriteMovies @auth(level: USER) {
+  user(id_expr: "auth.uid") {
+    favoriteMovies: favorite_movies_on_user {
+      movie {
+        id
+        title
+        genre
+        imageUrl
+        releaseYear
+        rating
+        description
+      }
+    }
+  }
+}
+
+# # Example queries for a simple movie app.
+
+# # @auth() directives control who can call each operation.
+# # Anyone should be able to list all movies, so the auth level is set to PUBLIC
+# query ListMovies @auth(level: PUBLIC) {
+#   movies {
+#     id
+#     title
+#     imageUrl
+#     genre
+#   }
+# }
+
+# # List all users, only admins should be able to list all users, so we use NO_ACCESS
+# query ListUsers @auth(level: NO_ACCESS) {
+#   users {
+#     id
+#     username
+#   }
+# }
+
+# # Logged in users can list all their reviews and movie titles associated with the review
+# # Since the query uses the uid of the current authenticated user, we set auth level to USER
+# query ListUserReviews @auth(level: USER) {
+#   user(key: { id_expr: "auth.uid" }) {
+#     id
+#     username
+#     # <field>_on_<foreign_key_field> makes it easy to grab info from another table
+#     # Here, we use it to grab all the reviews written by the user.
+#     reviews: reviews_on_user {
+#       rating
+#       reviewDate
+#       reviewText
+#       movie {
+#         id
+#         title
+#       }
+#     }
+#   }
+# }
+
+# # Get movie by id
+# query GetMovieById($id: UUID!) @auth(level: PUBLIC) {
+#   movie(id: $id) {
+#     id
+#     title
+#     imageUrl
+#     genre
+#     metadata: movieMetadata_on_movie {
+#       rating
+#       releaseYear
+#       description
+#     }
+#     reviews: reviews_on_movie {
+#       reviewText
+#       reviewDate
+#       rating
+#       user {
+#         id
+#         username
+#       }
+#     }
+#   }
+# }
+
+# # Search for movies, actors, and reviews
+# query SearchMovie($titleInput: String, $genre: String) @auth(level: PUBLIC) {
+#   movies(
+#     where: {
+#       _and: [{ genre: { eq: $genre } }, { title: { contains: $titleInput } }]
+#     }
+#   ) {
+#     id
+#     title
+#     genre
+#     imageUrl
+#   }
+# }
